@@ -60,7 +60,7 @@ public class TLCDiagnosticPNView extends JPanel implements ItemListener {
 	/**
 	 * If the metric is absent, scale down the unit Area by this factor and display. 
 	 */
-	public static final float defaultAbsentMetricFactor = 0.2f;
+	public static final float defaultAbsentMetricFactor = 0.1f;
 
 	/**
 	 * If the metric is zero, scale down the unit Area by this factor and display. 
