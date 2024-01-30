@@ -45,8 +45,8 @@ public abstract class PicDiagnostic extends InOutInLayoutableElement {
 	
 	public String getColorPlot() {
 		if (!this.metricValue.isPresent()) {
-			return "red";
-			//return "black";
+			//return "red";
+			return "gray";
 		}
 		else if (this.metricValue.get().compareTo(0f) == 0) {
 			return "gray";
@@ -58,8 +58,8 @@ public abstract class PicDiagnostic extends InOutInLayoutableElement {
 	
 	public float getFillOpacity() {
 		if (!this.metricValue.isPresent()) {
-			return 1f;
-//			return 0f;
+			//return 1f;
+			return 0f;
 		}
 		else if (this.metricValue.get().compareTo(0f) == 0) {
 			return 0f;
