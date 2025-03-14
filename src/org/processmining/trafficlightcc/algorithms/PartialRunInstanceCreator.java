@@ -205,21 +205,24 @@ public class PartialRunInstanceCreator {
 		////////////////////////////////////////
 		// Clean pattern mapping from unused event patterns
 		// If an event is always executed synchronously, the normal "activity name pattern" is not needed.
-		// Since the TransClass2PatternMap gets its encoding from the event log, this is also leads to errors 
+		// Since the TransClass2PatternMap gets its encoding from the event log, this is also leads to errors
 		// in the pattern encoding lookup.
+		// --------------------
+		// I could derive this from the first round; however, the following instantiation of the "TransClass2PatternMap"
+		// calls "XLogInfoFactory.createLogInfo(...)" anyhow and the typical/default implementation caches this
+		XLogInfo logInfo = XLogInfoFactory.createLogInfo(secRoundVariantLog, evClassBridge.getEventClassesR2().getClassifier());
+		XEventClasses usedEventClasses = logInfo.getEventClasses();
 		// TODO Can be computed during the first round result processing
 		// Used Event Classes
-//		XEventClasses usedEventClasses = XEventClasses.deriveEventClasses(eventClasses.getClassifier(), 
-//				secRoundVariantLog);
-//		final Map<TransClass, Set<EvClassPattern>> tClass2eClassPatternHot = tClass2eClassPattern.entrySet().stream()
-//				.flatMap(e -> e.getValue().stream().map(p -> Pair.of(e.getKey(), p))) // Pairs (t, eventPattern)
-//				.filter(p -> usedEventClasses.getByIdentity(p.getRight().get(0).getId()) != null) // Keep if eventPattern is relevant
-//				.collect(Collectors.groupingBy(Pair::getLeft, 
-//						Collectors.mapping(Pair::getRight, Collectors.toSet())));	// Map: p -> (p.left = t, set(pair.right = pat)
-//						
-		TransClass2PatternMap tClass2eClassPatternMapping = new TransClass2PatternMap(secRoundVariantLog, 
-				priFirst.pn(), evClassBridge.getEventClassesR2().getClassifier(), transClasses, tClass2eClassPattern);
-		
+		final Map<TransClass, Set<EvClassPattern>> tClass2eClassPatternHot = tClass2eClassPattern.entrySet().stream()
+				.flatMap(e -> e.getValue().stream().map(p -> Pair.of(e.getKey(), p))) // Pairs (t, eventPattern)
+				.filter(p -> usedEventClasses.getByIdentity(p.getRight().get(0).getId()) != null) // Keep if eventPattern is relevant
+				.collect(Collectors.groupingBy(Pair::getLeft,
+						Collectors.mapping(Pair::getRight, Collectors.toSet())));	// Map: p -> (p.left = t, set(pair.right = pat)
+
+		TransClass2PatternMap tClass2eClassPatternMapping = new TransClass2PatternMap(secRoundVariantLog,
+				priFirst.pn(), evClassBridge.getEventClassesR2().getClassifier(), transClasses, tClass2eClassPatternHot);
+
 		//		PrintUtil.lazy(() -> PrintUtil.formattedTClass2EClassesMap(tClass2eClassPatternMapping, 
 		//				priFirst.pn().getTransitions())));
 		

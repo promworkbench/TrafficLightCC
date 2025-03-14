@@ -1,7 +1,6 @@
 package org.processmining.trafficlightcc.visualization.views;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.HashMap;
@@ -101,6 +100,8 @@ public class TLCDiagnosticPNView extends JPanel implements ItemListener {
 	public TLCDiagnosticPNView(TLCDiagnosticsModel tlcDiagModel) {
 		super();
 		this.setLayout(new BorderLayout());
+
+		this.setPreferredSize(new Dimension(600, 400));
 
 		this.tlcDiagModel = tlcDiagModel;
 		this.pics4Transitions = new HashMap<>();

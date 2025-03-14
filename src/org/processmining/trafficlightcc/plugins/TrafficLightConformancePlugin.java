@@ -25,6 +25,7 @@ import org.processmining.trafficlightcc.parameters.TLConfParameters;
 	returnTypes = {TLConfDiagnosticsBundle.class}, 
 	parameterLabels = { "Log", "Petri net" },
 	help = "None",
+	icon = "please_dont_be_a_folder.png",
 	categories = {PluginCategory.ConformanceChecking, PluginCategory.Analytics }, 
 	keywords = { "Partial Order", "Conformance" }, userAccessible = true)
 public class TrafficLightConformancePlugin {
@@ -33,7 +34,7 @@ public class TrafficLightConformancePlugin {
 	/**
 	 * GUI variants
 	 */
-	@UITopiaVariant(affiliation = UITopiaVariant.EHV, author = "Tobias", email = "brockhoff@pads.rwth-aachen", 
+	@UITopiaVariant(affiliation = UITopiaVariant.USEPLUGIN, author = "Tobias", email = "brockhoff@pads.rwth-aachen",
 			pack = "TrafficLightConformance")
 	@PluginVariant(variantLabel = "Using net, log, and standard parameter", requiredParameterLabels = { 0, 1 })
 	public TLConfDiagnosticsBundle replayLogGUIStandard(final UIPluginContext context, XLog log, Petrinet pn) {
